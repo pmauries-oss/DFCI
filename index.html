@@ -56,6 +56,17 @@ main{padding:12px 12px 0;display:grid;gap:10px;max-width:640px;margin:0 auto}
 .btn svg{width:20px;height:20px}
 .btn.primary{grid-column:1/-1;background:var(--blue);border-color:var(--blue);color:#fff}
 .btn.red{background:var(--red);border-color:var(--red);color:#fff}
+.guide{display:flex;align-items:center;gap:14px;border-color:#1f4d7a;background:linear-gradient(135deg,#10233a,#1a1d22 65%);cursor:default}
+.guide .arrow{width:104px;height:104px;flex:none}
+.guide .arrow g{transition:transform .35s ease-out;transform-origin:50px 50px}
+.guide .gd{font-size:34px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.05}
+.guide .gt{font-size:14px;color:#cfd5dc;margin-top:4px}
+.guide .gs{font-size:12px;color:var(--mut);margin-top:3px}
+.guide .gb{display:flex;gap:8px;margin-top:10px}
+.guide .gb .btn{height:38px;font-size:14px;padding:0 12px}
+.guide.arrived{border-color:#1f7a45;background:linear-gradient(135deg,#0f2e1c,#1a1d22 65%)}
+.guide.arrived .gd{color:var(--ok)}
+#wakeChip{cursor:pointer}
 .foot{text-align:center;color:#5d6570;font-size:12px;letter-spacing:1px;margin:14px 0 4px;text-transform:uppercase}
 /* Sheets */
 .sheet{position:fixed;inset:0;z-index:1000;background:var(--bg);display:none;flex-direction:column;padding-top:env(safe-area-inset-top)}
@@ -134,10 +145,27 @@ main{padding:12px 12px 0;display:grid;gap:10px;max-width:640px;margin:0 auto}
     <span class="chip" id="status"><span class="dot"></span><span id="statusTxt">Recherche GPS…</span></span>
     <span class="chip">Précision <b id="acc">—</b></span>
     <span class="chip">Altitude <b id="alt">—</b></span>
+    <span class="chip">Vitesse <b id="spd">—</b></span>
+    <span class="chip">Cap <b id="hdg">—</b></span>
+    <span class="chip" id="wakeChip">Écran <b id="wake">…</b></span>
   </div>
 </div>
 
 <main>
+  <section class="card guide" id="guideCard" hidden>
+    <svg class="arrow" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="46" fill="#0b0d10" stroke="#2f343c" stroke-width="3"/>
+      <text id="gN" x="50" y="14" text-anchor="middle" font-size="11" font-weight="800" fill="#9aa3ae">N</text>
+      <g id="gArrow"><path d="M50 12 L72 70 L50 58 L28 70 Z" fill="#3d8fe0" stroke="#fff" stroke-width="3" stroke-linejoin="round"/></g>
+    </svg>
+    <div style="flex:1;min-width:0">
+      <h2>Guidage vers</h2>
+      <div class="gd" id="gDist">—</div>
+      <div class="gt" id="gTxt">—</div>
+      <div class="gs" id="gSrc">—</div>
+      <div class="gb"><button class="btn" id="gMap">Carte</button><button class="btn" id="gStop">Arrêter</button></div>
+    </div>
+  </section>
   <section class="card dfci" data-copy="dfci">
     <div class="left">
       <h2>Carroyage DFCI</h2>
@@ -154,7 +182,7 @@ main{padding:12px 12px 0;display:grid;gap:10px;max-width:640px;margin:0 auto}
     <section class="card" data-copy="l93"><h2>Lambert 93</h2><div class="val" id="l93">—</div></section>
   </div>
   <section class="card" data-copy="mgrs"><span class="copy">copier</span><h2>MGRS / UTM (WGS84)</h2><div class="val" id="mgrs">—</div></section>
-  <div class="foot">Appuyer sur une carte pour copier · Géoloc DFCI v1.0</div>
+  <div class="foot">Appuyer sur une carte pour copier · Géoloc DFCI v1.1</div>
 </main>
 
 <div class="bar">
@@ -176,7 +204,7 @@ main{padding:12px 12px 0;display:grid;gap:10px;max-width:640px;margin:0 auto}
   </div>
   <div class="map-info" id="mapInfo">
     <div class="row"><div><div class="c" id="miCode">—</div><div class="s" id="miSub">—</div></div><button class="icon-btn" id="miClose" aria-label="Fermer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
-    <div class="acts"><button class="btn" id="miShare">Partager</button><button class="btn" id="miDetail">Détails</button><button class="btn red" id="miGo">Y aller</button></div>
+    <div class="acts"><button class="btn" id="miShare">Partager</button><button class="btn" id="miDetail">Détails</button><button class="btn red" id="miGo">Guider</button></div>
   </div>
 </div>
 
@@ -213,6 +241,8 @@ main{padding:12px 12px 0;display:grid;gap:10px;max-width:640px;margin:0 auto}
     <ul>
       <li>Appuyer sur l'indicateur vert <b>fige la position</b> (pour la dicter calmement) ; un nouvel appui relance le suivi.</li>
       <li>Appuyer sur une fiche copie la valeur.</li>
+      <li><b>Guidage</b> : depuis une recherche ou la carte, « Guider » affiche une flèche et la distance à vol d'oiseau vers le point. En roulant, la flèche suit le cap du véhicule (GPS) ; à l'arrêt, elle suit la boussole du téléphone tenu à plat.</li>
+      <li><b>Écran</b> : l'indicateur « Écran allumé » empêche la mise en veille (un appui pour la rétablir). Si le téléphone se verrouille, le suivi s'arrête.</li>
       <li>Sur la carte, toucher un point donne son code DFCI.</li>
       <li>Ajoute la page à l'écran d'accueil (Safari → Partager → Sur l'écran d'accueil) pour l'utiliser comme une appli.</li>
     </ul>
@@ -450,7 +480,7 @@ const GEO = (() => {
 <script>
 (() => {
 const $ = id => document.getElementById(id);
-let cur = null, pos = null, frozen = false, watchId = null;
+let cur = null, pos = null, frozen = false, watchId = null, live = null, track = [], speed = null, course = null, compass = null;
 
 // ---------- Horloge
 const fmtDate = new Intl.DateTimeFormat('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' });
@@ -491,6 +521,23 @@ function render() {
 // ---------- GPS
 function setStatus(cls, txt) { const s = $('status'); s.className = 'chip ' + cls; $('statusTxt').textContent = txt; }
 function onPos(p) {
+  const c = p.coords, now = { lat: c.latitude, lon: c.longitude, acc: c.accuracy, t: p.timestamp };
+  // Vitesse et cap : valeurs du GPS, sinon calculées sur la trace récente (utile au pas sur piste)
+  track.push(now); while (track.length > 2 && now.t - track[0].t > 30000) track.shift();
+  let spd = c.speed != null && c.speed >= 0 ? c.speed : null, crs = c.heading != null && !isNaN(c.heading) ? c.heading : null;
+  const need = Math.max(10, now.acc);
+  for (let i = track.length - 2; i >= 0; i--) {
+    const [dm, b] = distBrg(track[i].lat, track[i].lon, now.lat, now.lon), dt = (now.t - track[i].t) / 1000;
+    if (spd == null && dt >= 3) spd = dm / dt;
+    if (dm >= need) { if (crs == null) crs = b; if (spd == null && dt > 0) spd = dm / dt; break; }
+  }
+  speed = spd;
+  if (crs != null && spd != null && spd > 1) course = crs;
+  if (spd != null && spd < 0.7) course = null;
+  live = now;
+  $('spd').textContent = spd != null ? `${Math.round(spd * 3.6)} km/h` : '—';
+  $('hdg').textContent = course != null ? `${Math.round(course)}° ${dir8(course)}` : (spd != null && spd < 1 ? 'à l\'arrêt' : '—');
+  updateGuide();
   if (frozen) return;
   pos = { lat: p.coords.latitude, lon: p.coords.longitude, acc: p.coords.accuracy, alt: p.coords.altitude, t: p.timestamp };
   cur = GEO.all(pos.lat, pos.lon);
@@ -581,7 +628,7 @@ function initMap() {
   gridLayer = L.layerGroup().addTo(map);
   map.on('moveend zoomend', drawGrid);
   map.on('click', e => selectPoint(e.latlng.lat, e.latlng.lng, false));
-  drawGrid(); updateMe();
+  drawGrid(); updateMe(); drawTarget();
   return true;
 }
 document.querySelectorAll('[data-layer]').forEach(b => b.onclick = () => {
@@ -614,7 +661,7 @@ function selectPoint(lat, lon, isMe) {
 $('miClose').onclick = () => { $('mapInfo').classList.remove('show'); if (pin) { map.removeLayer(pin); pin = null; } };
 $('miShare').onclick = () => mapSel && share(mapSel, '📍 Point DFCI');
 $('miDetail').onclick = () => { if (!mapSel) return; open('sheetSearch'); showResult({ kind: 'Point de la carte', lat: mapSel.lat, lon: mapSel.lon }); };
-$('miGo').onclick = () => { if (mapSel) location.href = navLinks(mapSel.lat, mapSel.lon)[/iPhone|iPad|Mac/.test(navigator.userAgent) ? 'Plans' : 'Google']; };
+$('miGo').onclick = () => { if (mapSel) startGuide(mapSel.lat, mapSel.lon, mapSel.dfci ? mapSel.dfci.code : 'Point de la carte'); };
 
 // Dessin du carroyage DFCI (en Lambert II étendu, re-projeté)
 function drawGrid() {
@@ -681,12 +728,9 @@ let lastRes = null;
 function showResult(r) {
   const a = GEO.all(r.lat, r.lon); lastRes = { r, a };
   let dist = '';
-  if (pos) {
-    const R = 6371e3, p1 = pos.lat * Math.PI / 180, p2 = a.lat * Math.PI / 180, dp = p2 - p1, dl = (a.lon - pos.lon) * Math.PI / 180;
-    const d = 2 * R * Math.asin(Math.sqrt(Math.sin(dp / 2) ** 2 + Math.cos(p1) * Math.cos(p2) * Math.sin(dl / 2) ** 2));
-    const brg = (Math.atan2(Math.sin(dl) * Math.cos(p2), Math.cos(p1) * Math.sin(p2) - Math.sin(p1) * Math.cos(p2) * Math.cos(dl)) * 180 / Math.PI + 360) % 360;
-    const dir = ['N', 'NE', 'E', 'SE', 'S', 'SO', 'O', 'NO'][Math.round(brg / 45) % 8];
-    dist = `<div class="hint" style="margin:0">À ${d < 1000 ? Math.round(d) + ' m' : (d / 1000).toFixed(1).replace('.', ',') + ' km'} à vol d'oiseau, direction ${dir} (${Math.round(brg)}°)</div>`;
+  if (live) {
+    const [d, brg] = distBrg(live.lat, live.lon, a.lat, a.lon);
+    dist = `<div class="hint" style="margin:0">À ${fmtDist(d)} à vol d'oiseau, direction ${dir8(brg)} (${Math.round(brg)}°)</div>`;
   }
   const note = r.dfci && !r.dfci.sub ? `<div class="hint" style="margin:0">Code saisi : ${r.dfci.code} – carré de ${r.dfci.size / 1000} km, point placé en son centre.</div>` : '';
   $('searchOut').innerHTML = `
@@ -698,6 +742,7 @@ function showResult(r) {
     <div class="grid2"><section class="card" data-k="dm"><h2>Degrés min. déc.</h2><div class="val">${a.dm[0]}<br>${a.dm[1]}</div></section>
     <section class="card" data-k="l93"><h2>Lambert 93</h2><div class="val">X ${Math.round(a.l93[0]).toLocaleString('fr-FR')}<br>Y ${Math.round(a.l93[1]).toLocaleString('fr-FR')}</div></section></div>
     <section class="card" data-k="mgrs"><h2>MGRS / UTM</h2><div class="val">${a.mgrs ? a.mgrs.text : '—'}</div></section>
+    <button class="btn red" id="rGuide">➤ Guider vers ce point</button>
     <div class="acts"><button class="btn" id="rMap">Voir sur la carte</button><button class="btn" id="rShare">Partager</button></div>
     <div class="hint" style="margin:4px 2px 0">Y aller avec :</div>
     <div class="nav">${Object.entries(navLinks(a.lat, a.lon)).map(([k, u]) => `<a class="btn" style="text-decoration:none" href="${u}" target="_blank" rel="noopener">${k}</a>`).join('')}</div>
@@ -705,12 +750,108 @@ function showResult(r) {
   if (a.dfci) schemaSVG($('resSchema'), a.dfci.sub, a.dfci.u, a.dfci.v);
   $('searchOut').querySelectorAll('[data-k]').forEach(c => c.onclick = () => copy(textOf(a, c.dataset.k)));
   $('rShare').onclick = () => share(a, '📍 Point DFCI');
+  $('rGuide').onclick = () => startGuide(a.lat, a.lon, a.dfci ? a.dfci.code : r.kind);
   $('rMap').onclick = () => {
     const z = r.dfci && !r.dfci.sub ? { 100000: 9, 20000: 11, 2000: 14 }[r.dfci.size] : 15;
     openMap(a.lat, a.lon, z);
     setTimeout(() => map && selectPoint(a.lat, a.lon, false), 80);
   };
 }
+// ---------- Outils distance / direction
+function distBrg(la1, lo1, la2, lo2) {
+  const R = 6371e3, r = Math.PI / 180, p1 = la1 * r, p2 = la2 * r, dp = p2 - p1, dl = (lo2 - lo1) * r;
+  const d = 2 * R * Math.asin(Math.min(1, Math.sqrt(Math.sin(dp / 2) ** 2 + Math.cos(p1) * Math.cos(p2) * Math.sin(dl / 2) ** 2)));
+  const b = (Math.atan2(Math.sin(dl) * Math.cos(p2), Math.cos(p1) * Math.sin(p2) - Math.sin(p1) * Math.cos(p2) * Math.cos(dl)) / r + 360) % 360;
+  return [d, b];
+}
+function dir8(b) { return ['N', 'NE', 'E', 'SE', 'S', 'SO', 'O', 'NO'][Math.round(b / 45) % 8]; }
+function fmtDist(d) { return d < 1000 ? Math.round(d) + ' m' : (d / 1000).toFixed(d < 10000 ? 2 : 1).replace('.', ',') + ' km'; }
+
+// ---------- Boussole du téléphone
+function onOrient(e) {
+  if (e.webkitCompassHeading != null) compass = e.webkitCompassHeading;
+  else if (e.absolute && e.alpha != null) compass = (360 - e.alpha) % 360;
+  else return;
+  const so = (screen.orientation && screen.orientation.angle) || window.orientation || 0;
+  compass = (compass + so + 360) % 360;
+  updateGuide();
+}
+let orientOn = false;
+function enableCompass() {
+  if (orientOn) return; orientOn = true;
+  const add = () => { window.addEventListener('deviceorientationabsolute', onOrient); window.addEventListener('deviceorientation', onOrient); };
+  try {
+    if (window.DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission === 'function')
+      DeviceOrientationEvent.requestPermission().then(r => { if (r === 'granted') add(); }).catch(() => {});
+    else add();
+  } catch { }
+}
+
+// ---------- Guidage vers un point
+let target = null, rot = 0, tLine = null, tMarker = null;
+try { target = JSON.parse(localStorage.getItem('dfciTarget') || 'null'); } catch { }
+function startGuide(lat, lon, label) {
+  enableCompass();
+  target = { lat, lon, label };
+  try { localStorage.setItem('dfciTarget', JSON.stringify(target)); } catch { }
+  const n = document.querySelectorAll('.sheet.open').length; if (n) history.go(-n);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  toast('Guidage lancé'); updateGuide();
+}
+function stopGuide() {
+  target = null; try { localStorage.removeItem('dfciTarget'); } catch { }
+  updateGuide();
+}
+$('gStop').onclick = stopGuide;
+$('gMap').onclick = () => { if (!target) return; openMap(target.lat, target.lon, 14); };
+function updateGuide() {
+  const card = $('guideCard');
+  if (!target) { card.hidden = true; drawTarget(); return; }
+  card.hidden = false;
+  const tc = GEO.dfci(target.lat, target.lon);
+  if (!live) { $('gDist').textContent = '—'; $('gTxt').textContent = (tc ? tc.code : target.label) + ' · attente GPS'; return; }
+  const [d, b] = distBrg(live.lat, live.lon, target.lat, target.lon);
+  let ref = null, src;
+  if (course != null && speed != null && speed > 1.4) { ref = course; src = 'Flèche selon le cap du véhicule (GPS)'; }
+  else if (compass != null) { ref = compass; src = 'Flèche selon la boussole : tiens le téléphone à plat'; }
+  else src = 'Pas de cap : flèche orientée nord en haut';
+  const want = ref != null ? b - ref : b;
+  let delta = ((want - rot) % 360 + 540) % 360 - 180; rot += delta; // rotation la plus courte
+  $('gArrow').style.transform = `rotate(${rot}deg)`;
+  $('gN').style.display = ref == null ? '' : 'none';
+  const arrived = d <= Math.max(30, live.acc);
+  card.classList.toggle('arrived', arrived);
+  $('gDist').textContent = arrived ? 'Sur zone' : fmtDist(d);
+  $('gTxt').textContent = `${tc ? tc.code : target.label} · ${Math.round(b)}° ${dir8(b)} à vol d'oiseau`;
+  $('gSrc').textContent = src;
+  drawTarget();
+}
+function drawTarget() {
+  if (!map) return;
+  if (tLine) { map.removeLayer(tLine); tLine = null; }
+  if (tMarker) { map.removeLayer(tMarker); tMarker = null; }
+  if (!target) return;
+  tMarker = L.marker([target.lat, target.lon], { interactive: false, icon: L.divIcon({ className: '', html: '<div class="pin" style="background:#3d8fe0"></div>', iconSize: [26, 26], iconAnchor: [13, 30] }) }).addTo(map);
+  if (live) tLine = L.polyline([[live.lat, live.lon], [target.lat, target.lon]], { color: '#3d8fe0', weight: 3, dashArray: '8 8', interactive: false }).addTo(map);
+}
+updateGuide();
+
+// ---------- Écran toujours allumé
+let wl = null, wakeWanted = true;
+try { wakeWanted = localStorage.getItem('dfciWake') !== '0'; } catch { }
+function showWake() { $('wake').textContent = !('wakeLock' in navigator) ? 'non géré' : wl ? 'allumé' : wakeWanted ? '…' : 'veille auto'; }
+async function reqWake() {
+  if (!('wakeLock' in navigator) || !wakeWanted || wl) return showWake();
+  try { wl = await navigator.wakeLock.request('screen'); wl.addEventListener('release', () => { wl = null; showWake(); }); showWake(); } catch { $('wake').textContent = 'touche pour activer'; }
+}
+$('wakeChip').onclick = async () => {
+  wakeWanted = !wakeWanted; try { localStorage.setItem('dfciWake', wakeWanted ? '1' : '0'); } catch { }
+  if (!wakeWanted && wl) { try { await wl.release(); } catch { } wl = null; }
+  await reqWake(); toast(wakeWanted ? 'Écran maintenu allumé' : 'Mise en veille normale');
+};
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') reqWake(); });
+document.addEventListener('click', () => { if (!wl) reqWake(); });
+reqWake();
 if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(()=>{});
 })();
 </script>

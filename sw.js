@@ -1,5 +1,5 @@
 // Géoloc DFCI – cache hors ligne
-const C = 'geoloc-dfci-v1';
+const C = 'geoloc-dfci-v2';
 const CORE = ['./', './index.html', './manifest.json', './icon-192.png', './icon-180.png',
   'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css', 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js'];
 const TILES = 'geoloc-dfci-tuiles';
