@@ -19,3 +19,4 @@ self.addEventListener('fetch', e => {
     .catch(() => caches.match(e.request, { ignoreSearch: true })));
 });
 async function trim(c) { const k = await c.keys(); for (let i = 0; i < k.length - 3000; i++) await c.delete(k[i]); }
+
