@@ -1,5 +1,5 @@
 // Géoloc DFCI – cache hors ligne
-const C = 'geoloc-dfci-v2';
+const C = 'geoloc-dfci-v4';
 const CORE = ['./', './index.html', './manifest.json', './icon-192.png', './icon-180.png',
   'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css', 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js'];
 const TILES = 'geoloc-dfci-tuiles';
@@ -19,4 +19,3 @@ self.addEventListener('fetch', e => {
     .catch(() => caches.match(e.request, { ignoreSearch: true })));
 });
 async function trim(c) { const k = await c.keys(); for (let i = 0; i < k.length - 3000; i++) await c.delete(k[i]); }
-

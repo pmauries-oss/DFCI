@@ -62,6 +62,7 @@ main{padding:12px 12px 0;display:grid;gap:10px;max-width:640px;margin:0 auto}
 .guide .gd{font-size:34px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.05}
 .guide .gt{font-size:14px;color:#cfd5dc;margin-top:4px}
 .guide .gs{font-size:12px;color:var(--mut);margin-top:3px}
+.guide .eta{font-size:14px;margin-top:5px;font-variant-numeric:tabular-nums}.guide .eta b{color:#fff}
 .guide .gb{display:flex;gap:8px;margin-top:10px}
 .guide .gb .btn{height:38px;font-size:14px;padding:0 12px}
 .guide.arrived{border-color:#1f7a45;background:linear-gradient(135deg,#0f2e1c,#1a1d22 65%)}
@@ -88,6 +89,37 @@ main{padding:12px 12px 0;display:grid;gap:10px;max-width:640px;margin:0 auto}
 .map-info .acts{display:flex;gap:8px;margin-top:10px}
 .map-info .acts .btn{height:42px;font-size:15px;flex:1}
 .leaflet-container{font:inherit}
+.map-info .kv{font-size:14px;color:#cfd5dc;margin-top:6px;font-variant-numeric:tabular-nums;line-height:1.5}
+.map-info .kv b{color:var(--mut);font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-top:4px}
+.btn.blue{background:var(--blue);border-color:var(--blue);color:#fff}.btn.green{background:#2f9e5a;border-color:#2f9e5a;color:#fff}
+.left-tools{position:absolute;left:10px;top:calc(122px + env(safe-area-inset-top));z-index:600;display:flex;flex-direction:column;gap:10px}
+.left-tools button{width:48px;height:48px;border-radius:50%;background:rgba(26,29,34,.92);border:1px solid var(--line);display:grid;place-items:center}
+.left-tools button.on{background:var(--red);border-color:var(--red)}
+.left-tools svg{width:22px;height:22px}
+.banner{position:absolute;left:68px;right:64px;top:calc(122px + env(safe-area-inset-top));z-index:650;background:rgba(20,23,27,.96);border:1px solid var(--line);border-radius:14px;padding:10px 12px;display:none;font-size:14px}
+.banner.show{display:block}.banner .bv{font-size:22px;font-weight:800;font-variant-numeric:tabular-nums}
+.banner .bb{display:flex;gap:6px;margin-top:8px}.banner .bb .btn{height:36px;font-size:13px;flex:1}
+.dlg-bg{position:fixed;inset:0;z-index:2500;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;padding:20px}
+.dlg-bg.show{display:flex}
+.dlg{background:#26292e;border-radius:22px;padding:22px 20px 14px;width:100%;max-width:400px;max-height:85vh;overflow:auto}
+.dlg h3{margin:0 0 14px;font-size:24px;font-weight:600}
+.dlg .opt{display:flex;align-items:center;gap:14px;width:100%;padding:13px 4px;font-size:18px;text-align:left;border-bottom:1px solid #33373e}
+.dlg .opt:last-of-type{border-bottom:0}
+.dlg .opt small{display:block;color:var(--mut);font-size:13px}
+.dlg .radio{width:24px;height:24px;border-radius:50%;border:2.5px solid #fff;flex:none;display:grid;place-items:center}
+.dlg .radio.on{border-color:var(--blue)}.dlg .radio.on::after{content:"";width:12px;height:12px;border-radius:50%;background:var(--blue)}
+.dlg .gab{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px;margin:10px 0 4px}
+.dlg .gab label{font-size:13px;color:var(--mut)}
+.dlg .gab input{width:100%;background:none;border:0;border-bottom:2px solid #555;color:#fff;font-size:22px;padding:6px 0;outline:none}
+.dlg .gab input:focus{border-color:var(--blue)}
+.dlg .note{font-size:12px;color:var(--mut);margin:6px 0}
+.dlg .foot2{display:flex;justify-content:flex-end;gap:22px;margin-top:14px}
+.dlg .foot2 button{font-size:18px;padding:8px 4px}.dlg .foot2 .ok{color:var(--blue);font-weight:700}
+.dlg .item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #33373e}
+.dlg .item .t{flex:1;min-width:0}.dlg .item .t b{display:block;font-size:17px}.dlg .item .t span{font-size:12px;color:var(--mut)}
+.dlg .item button{font-size:13px;padding:7px 9px;border-radius:9px;background:var(--card2);border:1px solid var(--line)}
+.gl.zone{font-size:15px;color:#2a2a2a;text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 3px #fff;font-weight:800}
+.repere{width:22px;height:22px;border-radius:50% 50% 50% 0;background:#f0a020;transform:rotate(-45deg);border:3px solid #fff;box-shadow:0 2px 5px rgba(0,0,0,.5)}
 .gl{background:none;border:0;color:#c4161c;font-weight:800;text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 2px #fff;white-space:nowrap;font-size:12px;text-align:center;pointer-events:none}
 .gl.big{font-size:16px}.gl.sub{font-size:13px;color:#e5332a}
 .me{width:18px;height:18px;border-radius:50%;background:var(--blue);border:3px solid #fff;box-shadow:0 0 0 2px rgba(61,143,224,.5)}
@@ -162,6 +194,8 @@ main{padding:12px 12px 0;display:grid;gap:10px;max-width:640px;margin:0 auto}
       <h2>Guidage vers</h2>
       <div class="gd" id="gDist">—</div>
       <div class="gt" id="gTxt">—</div>
+      <div class="eta" id="gRoute">Route IGN : calcul…</div>
+      <div class="eta" id="gPace">À ton allure : en attente de déplacement</div>
       <div class="gs" id="gSrc">—</div>
       <div class="gb"><button class="btn" id="gMap">Carte</button><button class="btn" id="gStop">Arrêter</button></div>
     </div>
@@ -182,7 +216,7 @@ main{padding:12px 12px 0;display:grid;gap:10px;max-width:640px;margin:0 auto}
     <section class="card" data-copy="l93"><h2>Lambert 93</h2><div class="val" id="l93">—</div></section>
   </div>
   <section class="card" data-copy="mgrs"><span class="copy">copier</span><h2>MGRS / UTM (WGS84)</h2><div class="val" id="mgrs">—</div></section>
-  <div class="foot">Appuyer sur une carte pour copier · Géoloc DFCI v1.1</div>
+  <div class="foot">Appuyer sur une carte pour copier · Géoloc DFCI v1.3</div>
 </main>
 
 <div class="bar">
@@ -202,9 +236,17 @@ main{padding:12px 12px 0;display:grid;gap:10px;max-width:640px;margin:0 auto}
     <button id="tGrid" class="on" aria-label="Afficher la grille DFCI">#</button>
     <button id="tMe" aria-label="Me recentrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></button>
   </div>
+  <div class="left-tools">
+    <button id="tTrace" aria-label="Trace"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-6 4 4 4-7 5 5"/></svg></button>
+    <button id="tMeasure" aria-label="Mesurer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M4 4v16h16z"/><path d="M8 12v4h4z"/><path d="M4 8h2M4 12h2M4 16h2"/></svg></button>
+    <button id="tPins" aria-label="Repères"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M8 3h8M9 3v6l-3 4h12l-3-4V3M12 13v8"/></svg></button>
+  </div>
+  <div class="banner" id="banner"></div>
   <div class="map-info" id="mapInfo">
-    <div class="row"><div><div class="c" id="miCode">—</div><div class="s" id="miSub">—</div></div><button class="icon-btn" id="miClose" aria-label="Fermer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
-    <div class="acts"><button class="btn" id="miShare">Partager</button><button class="btn" id="miDetail">Détails</button><button class="btn red" id="miGo">Guider</button></div>
+    <div class="row"><div style="flex:1"><div class="c" id="miCode">—</div></div><button class="icon-btn" id="miClose" aria-label="Fermer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+    <div class="kv" id="miKv">—</div>
+    <div class="acts"><button class="btn blue" id="miGo">Itinéraire</button><button class="btn green" id="miShare">Partager</button></div>
+    <div class="acts" style="margin-top:6px"><button class="btn" id="miPin">+ Repère</button><button class="btn" id="miDetail">Détails</button></div>
   </div>
 </div>
 
@@ -241,15 +283,18 @@ main{padding:12px 12px 0;display:grid;gap:10px;max-width:640px;margin:0 auto}
     <ul>
       <li>Appuyer sur l'indicateur vert <b>fige la position</b> (pour la dicter calmement) ; un nouvel appui relance le suivi.</li>
       <li>Appuyer sur une fiche copie la valeur.</li>
-      <li><b>Guidage</b> : depuis une recherche ou la carte, « Guider » affiche une flèche et la distance à vol d'oiseau vers le point. En roulant, la flèche suit le cap du véhicule (GPS) ; à l'arrêt, elle suit la boussole du téléphone tenu à plat.</li>
+      <li><b>Guidage</b> : depuis une recherche ou la carte, « Guider » affiche une flèche, la distance à vol d'oiseau et deux durées : par la route (itinéraire IGN, réseau nécessaire) et à ton allure réelle (distance × 1,4 ÷ vitesse moyenne des 5 dernières minutes). En roulant, la flèche suit le cap du véhicule (GPS) ; à l'arrêt, elle suit la boussole du téléphone tenu à plat.</li>
       <li><b>Écran</b> : l'indicateur « Écran allumé » empêche la mise en veille (un appui pour la rétablir). Si le téléphone se verrouille, le suivi s'arrête.</li>
-      <li>Sur la carte, toucher un point donne son code DFCI.</li>
+      <li>Sur la carte, toucher un point donne son code DFCI, son altitude, le dénivelé (ΔD), la distance et l'azimut depuis ta position.</li>
+      <li><b>Itinéraire</b> : navigation dans l'appli selon le profil (marche, VL, poids lourd avec largeur, hauteur et poids), ou ouverture dans Waze, Google Maps ou Plans.</li>
+      <li>Outils de la carte : <b>trace</b> (enregistre le parcours, export GPX), <b>mesure</b> (distance entre plusieurs points), <b>repères</b> (points enregistrés dans le téléphone).</li>
       <li>Ajoute la page à l'écran d'accueil (Safari → Partager → Sur l'écran d'accueil) pour l'utiliser comme une appli.</li>
     </ul>
     <p style="color:#6b737d;font-size:13px;margin-top:24px">Outil d'aide à la localisation. En opération, confirmer toujours la position par les moyens réglementaires.</p>
   </div>
 </div>
 
+<div class="dlg-bg" id="dlgBg"><div class="dlg" id="dlg"></div></div>
 <div class="toast" id="toast"></div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
@@ -480,7 +525,7 @@ const GEO = (() => {
 <script>
 (() => {
 const $ = id => document.getElementById(id);
-let cur = null, pos = null, frozen = false, watchId = null, live = null, track = [], speed = null, course = null, compass = null;
+let cur = null, pos = null, frozen = false, watchId = null, live = null, track = [], pace = [], speed = null, course = null, compass = null;
 
 // ---------- Horloge
 const fmtDate = new Intl.DateTimeFormat('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' });
@@ -531,10 +576,12 @@ function onPos(p) {
     if (spd == null && dt >= 3) spd = dm / dt;
     if (dm >= need) { if (crs == null) crs = b; if (spd == null && dt > 0) spd = dm / dt; break; }
   }
+  if (!pace.length || now.t - pace[pace.length - 1].t >= 4000) pace.push(now);
+  while (pace.length > 2 && now.t - pace[0].t > 300000) pace.shift();
   speed = spd;
   if (crs != null && spd != null && spd > 1) course = crs;
   if (spd != null && spd < 0.7) course = null;
-  live = now;
+  live = now; traceFix(now);
   $('spd').textContent = spd != null ? `${Math.round(spd * 3.6)} km/h` : '—';
   $('hdg').textContent = course != null ? `${Math.round(course)}° ${dir8(course)}` : (spd != null && spd < 1 ? 'à l\'arrêt' : '—');
   updateGuide();
@@ -627,8 +674,8 @@ function initMap() {
   layers.plan.addTo(map);
   gridLayer = L.layerGroup().addTo(map);
   map.on('moveend zoomend', drawGrid);
-  map.on('click', e => selectPoint(e.latlng.lat, e.latlng.lng, false));
-  drawGrid(); updateMe(); drawTarget();
+  map.on('click', e => { if (measuring) return addMeasure(e.latlng); selectPoint(e.latlng.lat, e.latlng.lng, false); });
+  drawGrid(); updateMe(); drawTarget(); drawPins(); drawTrace();
   return true;
 }
 document.querySelectorAll('[data-layer]').forEach(b => b.onclick = () => {
@@ -654,14 +701,25 @@ function selectPoint(lat, lon, isMe) {
   const a = GEO.all(lat, lon); mapSel = a;
   if (pin) map.removeLayer(pin);
   if (!isMe) pin = L.marker([lat, lon], { icon: L.divIcon({ className: '', html: '<div class="pin"></div>', iconSize: [26, 26], iconAnchor: [13, 30] }) }).addTo(map);
-  $('miCode').textContent = a.dfci ? a.dfci.code : 'Hors grille';
-  $('miSub').textContent = `${a.lat.toFixed(5)}, ${a.lon.toFixed(5)} · ${a.dms[0]} ${a.dms[1]}`;
-  $('mapInfo').classList.add('show');
+  $('miCode').textContent = 'DFCI : ' + (a.dfci ? a.dfci.code : 'hors grille');
+  const kv = () => {
+    let h = `<b>DD</b>${a.lat.toFixed(5)}° N &nbsp; ${a.lon.toFixed(5)}° E<b>DMS</b>${a.dms[0]} &nbsp; ${a.dms[1]}`;
+    const al = altCache[key(a.lat, a.lon)];
+    const mine = live ? altCache[key(live.lat, live.lon)] : null;
+    h += `<br>Altitude : ${al != null ? Math.round(al) + ' m' : '…'}`;
+    if (al != null && mine != null && !isMe) { const dd = Math.round(al - mine); h += ` · ΔD : ${dd >= 0 ? '+' : ''}${dd} m`; }
+    if (live && !isMe) { const [d, b] = distBrg(live.lat, live.lon, a.lat, a.lon); h += `<br>Distance : ${fmtDist(d)} · Azimut : ${Math.round(b)}° ${dir16(b)}`; }
+    $('miKv').innerHTML = h;
+  };
+  kv(); $('mapInfo').classList.add('show');
+  const pts = [[a.lat, a.lon]]; if (live && !isMe) pts.push([live.lat, live.lon]);
+  getAlts(pts).then(kv);
 }
 $('miClose').onclick = () => { $('mapInfo').classList.remove('show'); if (pin) { map.removeLayer(pin); pin = null; } };
 $('miShare').onclick = () => mapSel && share(mapSel, '📍 Point DFCI');
 $('miDetail').onclick = () => { if (!mapSel) return; open('sheetSearch'); showResult({ kind: 'Point de la carte', lat: mapSel.lat, lon: mapSel.lon }); };
-$('miGo').onclick = () => { if (mapSel) startGuide(mapSel.lat, mapSel.lon, mapSel.dfci ? mapSel.dfci.code : 'Point de la carte'); };
+$('miGo').onclick = () => { if (mapSel) routeMenu(mapSel.lat, mapSel.lon, mapSel.dfci ? mapSel.dfci.code : 'Point de la carte'); };
+$('miPin').onclick = () => { if (mapSel) addPin(mapSel.lat, mapSel.lon); };
 
 // Dessin du carroyage DFCI (en Lambert II étendu, re-projeté)
 function drawGrid() {
@@ -694,7 +752,7 @@ function drawGrid() {
   }
   // Libellés
   const n = ((xmax - xmin) / step) * ((ymax - ymin) / step);
-  if (n <= 600) {
+  if (n <= 600 && !(step === 2000 && z >= 15)) {
     for (let x = xmin; x < xmax; x += step) for (let y = ymin; y < ymax; y += step) {
       const d = GEO.dfciFromL2E(x + step / 2, y + step / 2); if (!d) continue;
       const txt = step === 100000 ? d.square.slice(0, 2) : step === 20000 ? d.square.slice(0, 4) : (z >= 13 ? d.square : d.square.slice(4));
@@ -707,8 +765,8 @@ function drawGrid() {
     for (let x = xmin; x < xmax; x += step) for (let y = ymin; y < ymax; y += step) {
       L.polygon([ll(x + 500, y + 500), ll(x + 1500, y + 500), ll(x + 1500, y + 1500), ll(x + 500, y + 1500)], { ...st, fill: false }).addTo(gridLayer);
       [[[1000, 0], [1000, 500]], [[1000, 1500], [1000, 2000]], [[0, 1000], [500, 1000]], [[1500, 1000], [2000, 1000]]].forEach(s => L.polyline(s.map(p => ll(x + p[0], y + p[1])), st).addTo(gridLayer));
-      if (z >= 15) [[1, 250, 1750], [2, 1750, 1750], [3, 1750, 250], [4, 250, 250], [5, 1000, 1000]].forEach(([k, dx, dy]) =>
-        L.marker(ll(x + dx, y + dy), { interactive: false, icon: L.divIcon({ className: 'gl sub', html: '.' + k, iconSize: [30, 16], iconAnchor: [15, 8] }) }).addTo(gridLayer));
+      if (z >= 15) { const sq = GEO.dfciFromL2E(x + 1, y + 1); [[1, 330, 1670], [2, 1670, 1670], [3, 1670, 330], [4, 330, 330], [5, 1000, 1000]].forEach(([k, dx, dy]) =>
+        L.marker(ll(x + dx, y + dy), { interactive: false, icon: L.divIcon({ className: 'gl zone', html: sq.square + '.' + k, iconSize: [110, 18], iconAnchor: [55, 9] }) }).addTo(gridLayer)); }
     }
   }
 }
@@ -742,7 +800,7 @@ function showResult(r) {
     <div class="grid2"><section class="card" data-k="dm"><h2>Degrés min. déc.</h2><div class="val">${a.dm[0]}<br>${a.dm[1]}</div></section>
     <section class="card" data-k="l93"><h2>Lambert 93</h2><div class="val">X ${Math.round(a.l93[0]).toLocaleString('fr-FR')}<br>Y ${Math.round(a.l93[1]).toLocaleString('fr-FR')}</div></section></div>
     <section class="card" data-k="mgrs"><h2>MGRS / UTM</h2><div class="val">${a.mgrs ? a.mgrs.text : '—'}</div></section>
-    <button class="btn red" id="rGuide">➤ Guider vers ce point</button>
+    <button class="btn blue" id="rGuide">Itinéraire / guidage</button>
     <div class="acts"><button class="btn" id="rMap">Voir sur la carte</button><button class="btn" id="rShare">Partager</button></div>
     <div class="hint" style="margin:4px 2px 0">Y aller avec :</div>
     <div class="nav">${Object.entries(navLinks(a.lat, a.lon)).map(([k, u]) => `<a class="btn" style="text-decoration:none" href="${u}" target="_blank" rel="noopener">${k}</a>`).join('')}</div>
@@ -750,7 +808,7 @@ function showResult(r) {
   if (a.dfci) schemaSVG($('resSchema'), a.dfci.sub, a.dfci.u, a.dfci.v);
   $('searchOut').querySelectorAll('[data-k]').forEach(c => c.onclick = () => copy(textOf(a, c.dataset.k)));
   $('rShare').onclick = () => share(a, '📍 Point DFCI');
-  $('rGuide').onclick = () => startGuide(a.lat, a.lon, a.dfci ? a.dfci.code : r.kind);
+  $('rGuide').onclick = () => routeMenu(a.lat, a.lon, a.dfci ? a.dfci.code : r.kind);
   $('rMap').onclick = () => {
     const z = r.dfci && !r.dfci.sub ? { 100000: 9, 20000: 11, 2000: 14 }[r.dfci.size] : 15;
     openMap(a.lat, a.lon, z);
@@ -788,18 +846,18 @@ function enableCompass() {
 }
 
 // ---------- Guidage vers un point
-let target = null, rot = 0, tLine = null, tMarker = null;
+let target = null, rot = 0, tLine = null, tMarker = null, tRoute = null;
 try { target = JSON.parse(localStorage.getItem('dfciTarget') || 'null'); } catch { }
 function startGuide(lat, lon, label) {
   enableCompass();
-  target = { lat, lon, label };
+  target = { lat, lon, label }; route = null; routeReq = null;
   try { localStorage.setItem('dfciTarget', JSON.stringify(target)); } catch { }
   const n = document.querySelectorAll('.sheet.open').length; if (n) history.go(-n);
   window.scrollTo({ top: 0, behavior: 'smooth' });
   toast('Guidage lancé'); updateGuide();
 }
 function stopGuide() {
-  target = null; try { localStorage.removeItem('dfciTarget'); } catch { }
+  target = null; route = null; routeReq = null; try { localStorage.removeItem('dfciTarget'); } catch { }
   updateGuide();
 }
 $('gStop').onclick = stopGuide;
@@ -824,15 +882,61 @@ function updateGuide() {
   $('gDist').textContent = arrived ? 'Sur zone' : fmtDist(d);
   $('gTxt').textContent = `${tc ? tc.code : target.label} · ${Math.round(b)}° ${dir8(b)} à vol d'oiseau`;
   $('gSrc').textContent = src;
+  const [rt, pc] = etaTexts(d);
+  $('gRoute').innerHTML = arrived ? '' : rt; $('gPace').innerHTML = arrived ? '' : pc;
+  if (!arrived) fetchRoute(false);
   drawTarget();
+}
+// ---------- Durées de trajet
+const hhmm = min => { const d = new Date(Date.now() + min * 60000); return d.getHours() + ' h ' + String(d.getMinutes()).padStart(2, '0'); };
+const fmtMin = m => m < 60 ? Math.max(1, Math.round(m)) + ' min' : Math.floor(m / 60) + ' h ' + String(Math.round(m % 60)).padStart(2, '0');
+let route = null, routeReq = null, routeBusy = false;
+async function fetchRoute(force) {
+  if (!target || !live || routeBusy) return;
+  const nowT = Date.now();
+  if (!force && routeReq) {
+    const moved = distBrg(routeReq.lat, routeReq.lon, live.lat, live.lon)[0];
+    if (nowT - routeReq.t < 30000 || (moved < 400 && nowT - routeReq.t < 180000)) return;
+  }
+  routeBusy = true; routeReq = { lat: live.lat, lon: live.lon, t: nowT };
+  const tg = target;
+  try {
+    const res = await calcRoute(live.lat, live.lon, tg.lat, tg.lon);
+    if (target !== tg) return;
+    route = { ...res, t: Date.now() };
+  } catch (e) { route = route && route.t > Date.now() - 600000 ? route : { err: true }; }
+  finally { routeBusy = false; updateGuide(); }
+}
+function etaTexts(d) {
+  let rt;
+  if (!navigator.onLine && !route) rt = 'Route IGN : pas de réseau';
+  else if (!route) rt = 'Route IGN : calcul…';
+  else if (route.err) rt = 'Route IGN : indisponible';
+  else {
+    rt = `${route.label} : <b>${route.km.toFixed(1).replace('.', ',')} km · ${fmtMin(route.min)}</b> (arrivée ${hhmm(route.min)})`;
+    if (route.note) rt += `<br><span style="color:#f0a020">⚠ ${route.note}</span>`;
+    if (route.gap > 150) rt += `<br><span style="color:#f0a020">⚠ La route s'arrête à ${fmtDist(route.gap)} du point : fin par piste ou à pied</span>`;
+  }
+  let pc = 'À ton allure : en attente de déplacement';
+  if (pace.length >= 2) {
+    let len = 0; for (let i = 1; i < pace.length; i++) len += distBrg(pace[i - 1].lat, pace[i - 1].lon, pace[i].lat, pace[i].lon)[0];
+    const dt = (pace[pace.length - 1].t - pace[0].t) / 1000, v = dt > 0 ? len / dt : 0;
+    if (dt >= 30 && v > 0.5) {
+      const min = d * 1.4 / v / 60;
+      pc = `À ton allure (${Math.round(v * 3.6)} km/h moy.) : <b>≈ ${fmtMin(min)}</b>, arrivée vers ${hhmm(min)}`;
+    } else if (dt >= 30) pc = 'À ton allure : véhicule à l\'arrêt';
+  }
+  return [rt, pc];
 }
 function drawTarget() {
   if (!map) return;
   if (tLine) { map.removeLayer(tLine); tLine = null; }
   if (tMarker) { map.removeLayer(tMarker); tMarker = null; }
-  if (!target) return;
+  if (!target) { if (tRoute) { map.removeLayer(tRoute); tRoute = null; } return; }
   tMarker = L.marker([target.lat, target.lon], { interactive: false, icon: L.divIcon({ className: '', html: '<div class="pin" style="background:#3d8fe0"></div>', iconSize: [26, 26], iconAnchor: [13, 30] }) }).addTo(map);
   if (live) tLine = L.polyline([[live.lat, live.lon], [target.lat, target.lon]], { color: '#3d8fe0', weight: 3, dashArray: '8 8', interactive: false }).addTo(map);
+  if (route && route.coords && route.coords.length) { if (tRoute) map.removeLayer(tRoute); tRoute = L.polyline(route.coords, { color: '#f08a00', weight: 5, opacity: .85, interactive: false }).addTo(map); }
+  else if (tRoute) { map.removeLayer(tRoute); tRoute = null; }
 }
 updateGuide();
 
@@ -852,6 +956,204 @@ $('wakeChip').onclick = async () => {
 document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') reqWake(); });
 document.addEventListener('click', () => { if (!wl) reqWake(); });
 reqWake();
+// ---------- Altitudes IGN
+const altCache = {};
+const key = (la, lo) => la.toFixed(5) + ',' + lo.toFixed(5);
+async function getAlts(pts) {
+  const need = pts.filter(p => altCache[key(p[0], p[1])] == null);
+  if (!need.length) return;
+  try {
+    const u = `https://data.geopf.fr/altimetrie/1.0/calcul/alti/rest/elevation.json?lon=${need.map(p => p[1].toFixed(6)).join('|')}&lat=${need.map(p => p[0].toFixed(6)).join('|')}&resource=ign_rge_alti_wld&zonly=true`;
+    const r = await fetch(u); const j = await r.json();
+    (j.elevations || []).forEach((z, i) => { if (z > -1000) altCache[key(need[i][0], need[i][1])] = z; });
+  } catch { }
+}
+function dir16(b) { return ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSO', 'SO', 'OSO', 'O', 'ONO', 'NO', 'NNO'][Math.round(b / 22.5) % 16]; }
+
+// ---------- Boîte de dialogue
+function dlg(html, onBind) { $('dlg').innerHTML = html; $('dlgBg').classList.add('show'); if (onBind) onBind($('dlg')); }
+function dlgClose() { $('dlgBg').classList.remove('show'); }
+$('dlgBg').addEventListener('click', e => { if (e.target === $('dlgBg')) dlgClose(); });
+const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+// ---------- Profil de navigation
+let prof = { mode: 'pl', l: 2.5, h: 3.5, L: 7, p: 16 };
+try { Object.assign(prof, JSON.parse(localStorage.getItem('dfciProf') || '{}')); } catch { }
+const profName = () => ({ marche: 'À pied', vl: 'Véhicule léger', pl: 'Poids lourd' })[prof.mode];
+function routeMenu(lat, lon, label) {
+  const nl = navLinks(lat, lon);
+  dlg(`<h3>Itinéraire</h3>
+    <button class="opt" data-a="in"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M12 2 20 21 12 17 4 21z" fill="#35c26b"/></svg><span>Navigation Géoloc DFCI<small>${profName()}${prof.mode === 'pl' ? ` · ${String(prof.l).replace('.', ',')} × ${String(prof.h).replace('.', ',')} m · ${String(prof.p).replace('.', ',')} t` : ''}</small></span></button>
+    <button class="opt" data-a="prof"><span style="width:22px;text-align:center">⚙</span><span>Profil de navigation<small>Marche, véhicule léger, poids lourd et gabarit</small></span></button>
+    <a class="opt" style="color:inherit;text-decoration:none" href="${nl.Waze}" target="_blank" rel="noopener"><span style="width:22px"></span>Waze</a>
+    <a class="opt" style="color:inherit;text-decoration:none" href="${nl.Google}" target="_blank" rel="noopener"><span style="width:22px"></span>Google Maps</a>
+    <a class="opt" style="color:inherit;text-decoration:none" href="${nl.Plans}" target="_blank" rel="noopener"><span style="width:22px"></span>Plans</a>
+    <div class="foot2"><button data-a="x" class="ok">Annuler</button></div>`, d => {
+    d.querySelector('[data-a=in]').onclick = () => { dlgClose(); startGuide(lat, lon, label); };
+    d.querySelector('[data-a=prof]').onclick = () => profDialog(() => { dlgClose(); startGuide(lat, lon, label); });
+    d.querySelector('[data-a=x]').onclick = dlgClose;
+    d.querySelectorAll('a.opt').forEach(a => a.addEventListener('click', dlgClose));
+  });
+}
+function profDialog(after) {
+  let m = prof.mode;
+  const num = v => String(v).replace('.', ',');
+  const render = () => dlg(`<h3>Profil de navigation</h3>
+    ${[['marche', 'Marche'], ['vl', 'Véhicule léger'], ['pl', 'Poids lourd']].map(([k, t]) => `<button class="opt" data-m="${k}"><span class="radio ${m === k ? 'on' : ''}"></span>${t}</button>`).join('')}
+    <div id="gabBox" style="display:${m === 'pl' ? 'block' : 'none'}">
+      <div style="font-weight:700;color:#cfd5dc;margin-top:12px">Gabarit du véhicule</div>
+      <div class="gab">
+        <div><label>Largeur (m)</label><input inputmode="decimal" id="gl" value="${num(prof.l)}"></div>
+        <div><label>Hauteur (m)</label><input inputmode="decimal" id="gh" value="${num(prof.h)}"></div>
+        <div><label>Longueur (m)</label><input inputmode="decimal" id="gL" value="${num(prof.L)}"></div>
+        <div><label>Poids (t)</label><input inputmode="decimal" id="gp" value="${num(prof.p)}"></div>
+      </div>
+      <div class="note">Largeur, hauteur et poids sont comparés aux restrictions de la BD TOPO IGN. La longueur n'est pas gérée par le service IGN.</div>
+    </div>
+    <div class="foot2"><button data-a="x">Annuler</button><button data-a="ok" class="ok">${after ? 'Calculer' : 'Enregistrer'}</button></div>`, d => {
+    d.querySelectorAll('[data-m]').forEach(b => b.onclick = () => { keep(); m = b.dataset.m; render(); });
+    d.querySelector('[data-a=x]').onclick = dlgClose;
+    d.querySelector('[data-a=ok]').onclick = () => {
+      keep(); prof.mode = m;
+      try { localStorage.setItem('dfciProf', JSON.stringify(prof)); } catch { }
+      route = null; routeReq = null;
+      if (after) after(); else { dlgClose(); toast('Profil : ' + profName()); updateGuide(); }
+    };
+  });
+  const keep = () => { const g = id => { const el = $(id); if (!el) return null; const v = parseFloat(el.value.replace(',', '.')); return isFinite(v) && v > 0 ? v : null; };
+    prof.l = g('gl') || prof.l; prof.h = g('gh') || prof.h; prof.L = g('gL') || prof.L; prof.p = g('gp') || prof.p; };
+  render();
+}
+async function igRoute(params) {
+  const u = 'https://data.geopf.fr/navigation/itineraire?' + params + '&geometryFormat=geojson&getSteps=false&distanceUnit=kilometer&timeUnit=minute&optimization=fastest';
+  const r = await fetch(u); if (!r.ok) throw new Error(r.status);
+  const j = await r.json(); if (!j.geometry) throw new Error('vide');
+  return j;
+}
+async function calcRoute(la1, lo1, la2, lo2) {
+  const se = `start=${lo1.toFixed(6)},${la1.toFixed(6)}&end=${lo2.toFixed(6)},${la2.toFixed(6)}`;
+  const crow = distBrg(la1, lo1, la2, lo2)[0];
+  const pack = (j, label, note) => {
+    const c = j.geometry.coordinates || [], last = c[c.length - 1];
+    return { km: +j.distance, min: +j.duration, coords: c.map(p => [p[1], p[0]]), gap: last ? distBrg(last[1], last[0], la2, lo2)[0] : 0, label, note };
+  };
+  if (prof.mode === 'marche') return pack(await igRoute('resource=bdtopo-osrm&profile=pedestrian&' + se), 'À pied (IGN)');
+  if (prof.mode === 'vl') return pack(await igRoute('resource=bdtopo-osrm&profile=car&' + se), 'Route IGN (VL)');
+  // Poids lourd : contraintes de gabarit sur le graphe BD TOPO (pgRouting)
+  const cons = [['restriction_de_hauteur', prof.h], ['restriction_de_largeur', prof.l], ['restriction_de_poids_total', prof.p]]
+    .map(([k, v]) => JSON.stringify({ constraintType: 'banned', key: k, operator: '<', value: v })).join('|');
+  const lbl = `Route IGN (PL ${String(prof.l).replace('.', ',')}×${String(prof.h).replace('.', ',')} m, ${String(prof.p).replace('.', ',')} t)`;
+  try {
+    const j = await igRoute('resource=bdtopo-pgr&profile=car&' + se + '&constraints=' + encodeURIComponent(cons));
+    const res = pack(j, lbl);
+    if (res.gap < 300 && res.km * 1000 >= crow * 0.9) return res;
+  } catch { }
+  // Repli : itinéraire poids lourd standard, sans contrôle du gabarit
+  return pack(await igRoute('resource=bdtopo-osrm&profile=exceptionnal&' + se), 'Route IGN (PL)', 'Gabarit non vérifié sur ce trajet (données IGN incomplètes)');
+}
+
+// ---------- Repères
+let pins = [], pinLayer = null;
+try { pins = JSON.parse(localStorage.getItem('dfciPins') || '[]'); } catch { }
+const savePins = () => { try { localStorage.setItem('dfciPins', JSON.stringify(pins)); } catch { } drawPins(); };
+function addPin(lat, lon, name) {
+  const c = GEO.dfci(lat, lon);
+  pins.unshift({ id: Date.now(), lat, lon, name: name || (c ? c.code : 'Repère'), t: Date.now() });
+  savePins(); toast('Repère enregistré');
+}
+function drawPins() {
+  if (!map) return;
+  if (pinLayer) map.removeLayer(pinLayer);
+  pinLayer = L.layerGroup(pins.map(p => L.marker([p.lat, p.lon], { icon: L.divIcon({ className: '', html: '<div class="repere"></div>', iconSize: [22, 22], iconAnchor: [11, 26] }) })
+    .on('click', () => selectPoint(p.lat, p.lon, false)))).addTo(map);
+}
+function pinsDialog() {
+  const fmt = t => new Date(t).toLocaleString('fr-FR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+  dlg(`<h3>Repères</h3>
+    <button class="btn blue" data-a="me" style="width:100%;height:44px;margin-bottom:6px">+ Ma position actuelle</button>
+    ${pins.length ? pins.map(p => `<div class="item"><div class="t"><b>${esc(p.name)}</b><span>${p.lat.toFixed(5)}, ${p.lon.toFixed(5)} · ${fmt(p.t)}</span></div>
+      <button data-go="${p.id}">Voir</button><button data-it="${p.id}">Itin.</button><button data-del="${p.id}">✕</button></div>`).join('') : '<div class="note" style="padding:14px 0">Aucun repère. Touche un point de la carte puis « + Repère », ou enregistre ta position.</div>'}
+    <div class="foot2"><button data-a="x" class="ok">Fermer</button></div>`, d => {
+    d.querySelector('[data-a=x]').onclick = dlgClose;
+    d.querySelector('[data-a=me]').onclick = () => { if (!live) return toast('Pas encore de position'); addPin(live.lat, live.lon); pinsDialog(); };
+    const find = id => pins.find(p => p.id == id);
+    d.querySelectorAll('[data-go]').forEach(b => b.onclick = () => { const p = find(b.dataset.go); dlgClose(); openMap(p.lat, p.lon, 15); setTimeout(() => map && selectPoint(p.lat, p.lon, false), 80); });
+    d.querySelectorAll('[data-it]').forEach(b => b.onclick = () => { const p = find(b.dataset.it); routeMenu(p.lat, p.lon, p.name); });
+    d.querySelectorAll('[data-del]').forEach(b => b.onclick = () => { pins = pins.filter(p => p.id != b.dataset.del); savePins(); pinsDialog(); });
+  });
+}
+$('tPins').onclick = pinsDialog;
+
+// ---------- Mesure
+let measuring = false, mPts = [], mLayer = null;
+function drawMeasure() {
+  if (mLayer) map.removeLayer(mLayer);
+  mLayer = L.layerGroup().addTo(map);
+  if (mPts.length) L.polyline(mPts, { color: '#ffd400', weight: 4, interactive: false }).addTo(mLayer);
+  mPts.forEach(p => L.circleMarker(p, { radius: 5, color: '#111', weight: 2, fillColor: '#ffd400', fillOpacity: 1, interactive: false }).addTo(mLayer));
+  let d = 0; for (let i = 1; i < mPts.length; i++) d += distBrg(mPts[i - 1].lat, mPts[i - 1].lng, mPts[i].lat, mPts[i].lng)[0];
+  const last = mPts.length >= 2 ? distBrg(mPts[mPts.length - 2].lat, mPts[mPts.length - 2].lng, mPts[mPts.length - 1].lat, mPts[mPts.length - 1].lng) : null;
+  $('banner').innerHTML = `<div>Mesure – touche la carte pour ajouter des points</div><div class="bv">${mPts.length < 2 ? '—' : fmtDist(d)}</div>
+    ${last ? `<div style="color:var(--mut);font-size:13px">Dernier segment : ${fmtDist(last[0])} · ${Math.round(last[1])}° ${dir16(last[1])}</div>` : ''}
+    <div class="bb"><button class="btn" id="mUndo">Annuler point</button><button class="btn" id="mEnd">Terminer</button></div>`;
+  $('banner').classList.add('show');
+  $('mUndo').onclick = () => { mPts.pop(); drawMeasure(); };
+  $('mEnd').onclick = stopMeasure;
+}
+function addMeasure(ll) { mPts.push(ll); drawMeasure(); }
+function stopMeasure() { measuring = false; mPts = []; if (mLayer) map.removeLayer(mLayer); mLayer = null; $('banner').classList.remove('show'); $('tMeasure').classList.remove('on'); }
+$('tMeasure').onclick = () => {
+  if (measuring) return stopMeasure();
+  measuring = true; $('tMeasure').classList.add('on'); $('mapInfo').classList.remove('show'); drawMeasure();
+};
+
+// ---------- Trace (enregistrement du parcours)
+let trace = { on: false, pts: [] }, trLine = null;
+try { trace = Object.assign(trace, JSON.parse(localStorage.getItem('dfciTrace') || '{}')); } catch { }
+const saveTrace = () => { try { localStorage.setItem('dfciTrace', JSON.stringify(trace)); } catch { } };
+function traceLen() { let d = 0; for (let i = 1; i < trace.pts.length; i++) d += distBrg(trace.pts[i - 1][0], trace.pts[i - 1][1], trace.pts[i][0], trace.pts[i][1])[0]; return d; }
+function traceFix(p) {
+  if (!trace.on || p.acc > 50) return;
+  const l = trace.pts[trace.pts.length - 1];
+  if (l && distBrg(l[0], l[1], p.lat, p.lon)[0] < Math.max(5, p.acc / 2)) return;
+  trace.pts.push([+p.lat.toFixed(6), +p.lon.toFixed(6), p.t]); saveTrace(); drawTrace();
+}
+function drawTrace() {
+  $('tTrace') && $('tTrace').classList.toggle('on', trace.on);
+  if (!map) return;
+  if (trLine) map.removeLayer(trLine);
+  trLine = trace.pts.length > 1 ? L.polyline(trace.pts.map(p => [p[0], p[1]]), { color: '#35c26b', weight: 4, interactive: false }).addTo(map) : null;
+}
+function gpx() {
+  const iso = t => new Date(t).toISOString();
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<gpx version="1.1" creator="Geoloc DFCI" xmlns="http://www.topografix.com/GPX/1/1">\n<trk><name>Trace ${new Date(trace.pts[0][2]).toLocaleString('fr-FR')}</name><trkseg>\n` +
+    trace.pts.map(p => `<trkpt lat="${p[0]}" lon="${p[1]}"><time>${iso(p[2])}</time></trkpt>`).join('\n') + '\n</trkseg></trk>\n</gpx>';
+}
+async function exportGpx() {
+  if (trace.pts.length < 2) return toast('Trace vide');
+  const name = 'trace-dfci-' + new Date().toISOString().slice(0, 16).replace(/[:T]/g, '-') + '.gpx';
+  const file = new File([gpx()], name, { type: 'application/gpx+xml' });
+  try { if (navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file], title: name }); return; } } catch (e) { if (e.name === 'AbortError') return; }
+  const a = document.createElement('a'); a.href = URL.createObjectURL(file); a.download = name; document.body.appendChild(a); a.click(); a.remove();
+}
+function traceDialog() {
+  const n = trace.pts.length, d = traceLen();
+  const dur = n > 1 ? fmtMin((trace.pts[n - 1][2] - trace.pts[0][2]) / 60000) : '—';
+  dlg(`<h3>Trace</h3>
+    <div class="note" style="font-size:15px;color:#cfd5dc">${trace.on ? '● Enregistrement en cours' : 'Enregistrement arrêté'} · ${n > 1 ? fmtDist(d) + ' · ' + dur : 'aucun point'}</div>
+    <div class="note">La trace s'enregistre tant que l'appli est ouverte et l'écran allumé.</div>
+    <button class="opt" data-a="tog">${trace.on ? '⏸ Arrêter l\'enregistrement' : '● Démarrer l\'enregistrement'}</button>
+    <button class="opt" data-a="gpx">⇪ Exporter en GPX</button>
+    <button class="opt" data-a="clr" style="color:#ff5a4f">✕ Effacer la trace</button>
+    <div class="foot2"><button data-a="x" class="ok">Fermer</button></div>`, dd => {
+    dd.querySelector('[data-a=x]').onclick = dlgClose;
+    dd.querySelector('[data-a=tog]').onclick = () => { trace.on = !trace.on; saveTrace(); drawTrace(); if (trace.on && live) traceFix(live); toast(trace.on ? 'Trace démarrée' : 'Trace arrêtée'); traceDialog(); };
+    dd.querySelector('[data-a=gpx]').onclick = exportGpx;
+    dd.querySelector('[data-a=clr]').onclick = () => { trace.pts = []; saveTrace(); drawTrace(); traceDialog(); };
+  });
+}
+$('tTrace').onclick = traceDialog;
+drawTrace();
 if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(()=>{});
 })();
 </script>
